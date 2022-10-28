@@ -1,0 +1,8 @@
+version: "2"
+services:
+  app:
+      image: registry.gitlab.com/soft-magik/eazibiz-good-services:main
+      restart: always
+      ports:
+        - "8080:8080"
+      command: ["yarn", "start"]
