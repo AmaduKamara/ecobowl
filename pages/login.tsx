@@ -10,6 +10,9 @@ import { phoneRegExp } from "../common";
 import { AppButton } from "../components/ui/Button";
 import { Card } from "../components/AppLayout";
 
+import Image from 'next/image'
+const ecobowlLogo = "/ecobowl-logo.png"
+
 const Login = () => {
 
     const [isLoading, setLoading] = useState(false);
@@ -48,7 +51,7 @@ const Login = () => {
             <Card className="w-full md:w-96 px-8 py-6">
                 <div className="mb-5">
                     <div className="flex items-center mb-7 space-x-2">
-                        <p className="text-xl font-bold">ecobowl</p>
+                        <Image src={ecobowlLogo} width={190} height={50} />
                     </div>
                 </div>
                 {
