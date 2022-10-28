@@ -10,6 +10,11 @@ import { appStore } from "../redux/app/selector";
 import { checkPermissions } from "../contexts/permission";
 import { BsCalendar2Event, BsCashCoin } from "react-icons/bs";
 
+// New icons
+import { FcBusiness } from "react-icons/fc";
+import { IoIosPeople } from "react-icons/io";
+import { MdOutlineEventSeat } from "react-icons/md";
+
 const Menu = ({ logo = "./app.png" }) => {
 
     const app = useSelector((state: any) => appStore(state));
@@ -29,7 +34,7 @@ const Menu = ({ logo = "./app.png" }) => {
                         checkPermissions("/business") ?
                             <li>
                                 <NavLink to='/business'>
-                                    <BiCollection className="text-xl" />
+                                    <FcBusiness className="text-xl" />
                                     <p className="whitespace-nowrap">Business</p>
                                 </NavLink>
                             </li> : null
@@ -37,7 +42,7 @@ const Menu = ({ logo = "./app.png" }) => {
                     {
                         checkPermissions("/entrepreneurs") ? <li>
                             <NavLink to='/entrepreneurs'>
-                                <BsCashCoin className="text-lg" />
+                                <IoIosPeople className="text-lg" />
                                 <p className="whitespace-nowrap">Entrepreneurs</p>
                             </NavLink>
                         </li> : null
@@ -45,7 +50,7 @@ const Menu = ({ logo = "./app.png" }) => {
                     {
                         checkPermissions("/events") ? <li>
                             <NavLink to='/events'>
-                                <BsCalendar2Event className="text-lg" />
+                                <MdOutlineEventSeat className="text-lg" />
                                 <p className="whitespace-nowrap">Events</p>
                             </NavLink>
                         </li> : null
