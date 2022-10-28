@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { DateFormater, ToLeones } from '../../hooks';
 import { AntTable } from '../../components/ui/Table';
 import { useItems } from '../../hooks/useSales';
-import { Discount } from '../../components/ui/SalesContent';
+import { Discount } from '../../hooks/useEvent';
 import { SalesReceipt } from '../../components/receipts/sales';
 import { HeadTitle } from '../../components/head';
 import { useEffect, useState } from 'react';

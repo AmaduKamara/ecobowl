@@ -9,7 +9,7 @@ import { AppLayout } from '../../components/AppLayout';
 import { HeadTitle } from '../../components/head';
 import {PhoneSales} from '../../components/table/sales';
 import { AppButton } from '../../components/ui/Button';
-import { SalesItemsTable } from '../../components/ui/SalesContent';
+import { EventTeams } from '../../hooks/useEvent';
 import { AntTableExpanded } from '../../components/ui/Table';
 import { useSales } from '../../hooks/useSales';
 import { useWindowSize } from '../../hooks/useWindowSize';
@@ -53,7 +53,7 @@ const Sales = () => {
       </div>
       <div className='mt-5'>
         {
-          width > PC ? <AntTableExpanded loading={loading} expandable={SalesItemsTable} columns={columns} rows={rows} /> : 
+          width > PC ? <AntTableExpanded loading={loading} expandable={EventTeams} columns={columns} rows={rows} /> : 
           <PhoneSales loading={loading} rows={rows} />
         }
       </div>

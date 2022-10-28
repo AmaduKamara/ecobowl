@@ -25,11 +25,13 @@ import { AppButton } from '../../components/ui/Button';
 import { PhoneProductItem } from '../../components/table/product';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { PC, PT } from '../../common';
+import { DateFormater } from '../../hooks';
 
 const MakeSales = () => {
     const [item, setItem] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
+    const [record, setRecord] = useState();
     const [customers, setCustomers] = useState([]);
     const [editState, setEditState] = useState(false);
     const { width } = useWindowSize();
@@ -170,88 +172,26 @@ const MakeSales = () => {
 
     return (
         <AppLayout logo='../app.png'>
-            <HeadTitle title="Make sales" app={app.name} />
+            <HeadTitle title="View Event" />
             <Breadcrumb>
                 <Breadcrumb.Item><Link href='/'><a>Dashboard</a></Link></Breadcrumb.Item>
-                <Breadcrumb.Item><Link href='/product'><a>Products</a></Link></Breadcrumb.Item>
-                <Breadcrumb.Item>Make Sales</Breadcrumb.Item>
+                <Breadcrumb.Item><Link href='/events'><a>Events</a></Link></Breadcrumb.Item>
+                <Breadcrumb.Item>View Event</Breadcrumb.Item>
             </Breadcrumb>
             <form onSubmit={formik.handleSubmit}>
                 <TabLayout>
                     <div className='flex lg:flex-col pt:flex-row flex-wrap'>
-                        <div className='p-2 w-full md:w-1/3 pt:w-1/3 lg:w-full'>
-                            <SelectField
-                                required
-                                label='Sales Type'
-                                placeholder="Sales Type"
-                                value={formik.values.salesType}
-                                onChange={typeChange}
-                                error={formik.touched.salesType && formik.errors.salesType ? formik.errors.salesType : ""}>
-                                {
-                                    sales.map((e, index) => (<Option key={index} value={e}>{e}</Option>))
-                                }
-                            </SelectField>
+                        <div className='flex justify-between  px-2 py-3 border-b'>
+                            <p>Name:</p><p>{record.invoiceNumber}</p>
                         </div>
-                        <div className='p-2 w-full md:w-1/3 pt:w-1/3 lg:w-full'>
-                            <DateField
-                                required
-                                label='Date'
-                                value={formik.values.date}
-                                onChange={(date) => {
-                                    if (date) formik.setFieldValue('date', date)
-                                }}
-                                error={formik.touched.date && formik.errors.date ? formik.errors.date : ""}
-                            />
+                        <div className='flex justify-between  px-2 py-3 border-b'>
+                            <p>Institution:</p><p>{record.salesType}</p>
                         </div>
-                        <div className='p-2 w-full md:w-1/3 pt:w-1/3 lg:w-full'>
-                            <SelectField
-                                required
-                                label='Payment Type'
-                                placeholder="Payment Type"
-                                value={formik.values.paymentType}
-                                onChange={paymentChange}
-                                error={formik.touched.paymentType && formik.errors.paymentType ? formik.errors.paymentType : ""}>
-                                {
-                                    payments.map((e, index) => (<Option key={index} value={e}>{e}</Option>))
-                                }
-                            </SelectField>
+                        <div className='flex justify-between px-2 py-3 border-b'>
+                            <p>Start Date:</p><p>{DateFormater(record.dateSupplied)}</p>
                         </div>
-                        <div className='p-2 w-full md:w-1/3 pt:w-1/3 lg:w-full'>
-                            <NumberField
-                                label='Discount'
-                                placeholder="Discount"
-                                value={formik.values.discount}
-                                max={100}
-                                onChange={discountChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.discount && formik.errors.discount ? formik.errors.discount : ""}
-                                name='discount' />
-                        </div>
-                        <div className='p-2 w-full md:w-1/3 pt:w-1/3 lg:w-full'>
-                            <SelectField
-                                label='Customer'
-                                placeholder="Customer"
-                                value={formik.values.customerId}
-                                onChange={customerChange}
-                                error={formik.touched.customerId && formik.errors.customerId ? formik.errors.customerId : ""}>
-                                {
-                                    customers.map((e: any) => (<Option key={e.id} value={e.id}>{e.givenNames} {e.familyName}</Option>))
-                                }
-                            </SelectField>
-                        </div>
-                        <div className='border-t p-2 items-end w-full md:w-1/3 pt:w-1/3 lg:w-full mt-10 md:mt-0 pt-3 md:pt-0 md:border-0 flex space-x-3'>
-                            <div className="w-full">
-                                <AppButton
-                                    outline
-                                    onClick={() => back()}
-                                    className="w-full">Cancel</AppButton>
-                            </div>
-                            <div className='w-full'>
-                                <AppButton
-                                    loading={isLoading}
-                                    className="w-full"
-                                    type="submit">Save</AppButton>
-                            </div>
+                        <div className='flex justify-between px-2 py-3 border-b'>
+                            <p>End Date:</p><p>{DateFormater(record.dateSupplied)}</p>
                         </div>
                     </div>
                     <>

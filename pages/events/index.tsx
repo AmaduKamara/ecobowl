@@ -2,7 +2,8 @@ import { AppLayout } from '../../components/AppLayout';
 import { setProducts } from '../../redux/product/slice';
 import { api, handle401Error } from "../../api"
 import { useProducts } from '../../hooks/useProcucts';
-import { AntTable } from '../../components/ui/Table';
+import { AntTableExpanded } from '../../components/ui/Table';
+import { EventTeams, useEvent } from '../../hooks/useEvent';
 import { Breadcrumb } from 'antd';
 import Link from 'next/link';
 import Router from 'next/router';
@@ -10,13 +11,12 @@ import { HeadTitle } from '../../components/head';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppButton } from '../../components/ui/Button';
-import { useWindowSize } from '../../hooks/useWindowSize';
-import PhoneProduct from '../../components/table/product';
-import { PC, PT } from '../../common';
+import { EventDrawer } from '../../components/drawer/events';
 
 const Product = () => {
   const dispatch = useDispatch();
-  const { width } = useWindowSize();
+  const [visible, setVisible] = useState(false);
+  const [record, setRecord] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Product = () => {
 
   const fetch = () => {
     setLoading(true);
-    api('/product')
+    api('/event')
       .then((res) => res.data)
       .then((res) => {
         dispatch(setProducts(res));
@@ -34,27 +34,31 @@ const Product = () => {
       .finally(() => setLoading(false));
   }
 
-  const { columns, rows } = useProducts();
+  const { columns, rows } = useEvent({});
 
-  const makeSales = () => {
-    Router.push('/product/make-sales');
+  const addEvent = () => {
+    setVisible(true);
+  }
+
+  const onClose = (refresh = false) => {
+    setVisible(false);
+    if (refresh) fetch();
   }
 
   return (
     <AppLayout>
-      <HeadTitle title="Product" />
+      <HeadTitle title="Event" />
       <div className='flex justify-between items-center'>
         <Breadcrumb>
           <Breadcrumb.Item><Link href='/'><a>Dashboard</a></Link></Breadcrumb.Item>
-          <Breadcrumb.Item>Products</Breadcrumb.Item>
+          <Breadcrumb.Item>Events</Breadcrumb.Item>
         </Breadcrumb>
-        <AppButton onClick={makeSales}>Make Sales</AppButton>
+        <AppButton onClick={addEvent}>Add</AppButton>
       </div>
       <div className='mt-5'>
-        {
-          width > PC && PT < width ? <AntTable loading={loading} columns={columns} rows={rows} /> : <PhoneProduct loading={loading} rows={rows} />
-        }
+      <AntTableExpanded loading={loading} expandable={EventTeams} columns={columns} rows={rows} /> 
       </div>
+      <EventDrawer record={record} visible={visible} onClose={onClose} />
     </AppLayout>
   )
 }

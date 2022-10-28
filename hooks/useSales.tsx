@@ -4,12 +4,11 @@ import { TiPrinter } from "react-icons/ti";
 import { useSelector } from "react-redux";
 import { DateFormater, ToLeones } from ".";
 import { SalesReceipt } from "../components/receipts/sales";
-import { Discount, Total } from "../components/ui/SalesContent";
-import { ItemsCount } from "../components/ui/SalesContent";
+import { Discount, Total } from "./useEvent";
+import { ItemsCount } from "./useEvent";
 import { Action } from "../components/ui/Table";
 import { useAuth } from "../contexts/auth";
 import { sales5Store, salesStore } from "../redux/sales/selector";
-import { useWindowSize } from "./useWindowSize";
 
 export const SAction = ({ record }) => {
     const { app } = useAuth();
@@ -100,12 +99,12 @@ export const useItems = (record) => {
     }
 }
 
-export const useSalesItemsColumns = () => {
+export const useEventsTeams = () => {
     const columns = [
         { title: 'Name', dataIndex: 'productName', key: 'productName', ellipsis: true },
-        { title: 'Unit Price', key: 'sellingCost', dataIndex: 'sellingCost', render: ToLeones, align: "right" },
-        { title: 'Quantity', key: 'quantity', dataIndex: 'quantity', align: "center", sorter: (a, b) => a.quantity - b.quantity },
-        { title: 'Total Cost', key: 'sellingCost', align: "right", render: Total },
+        { title: 'Description', key: 'sellingCost', dataIndex: 'sellingCost', render: ToLeones, align: "right" },
+        { title: 'Solution', key: 'quantity' },
+        { title: 'Solution Description', key: 'quantity' }
     ];
 
     return {

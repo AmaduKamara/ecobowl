@@ -11,12 +11,10 @@ import { AppButton } from '../components/ui/Button';
 import { AntTable } from '../components/ui/Table';
 import { ShowMessage } from '../contexts/message';
 import { useInstitution } from '../hooks/useInstitution';
-import { useWindowSize } from '../hooks/useWindowSize';
 import { setService } from '../redux/service/slice';
 
 const Institutions: NextPage = () => {
   const dispatch = useDispatch();
-  const { width } = useWindowSize();
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [record, setRecord] = useState(null);
@@ -82,7 +80,6 @@ const Institutions: NextPage = () => {
       <div className='mt-5'>
         <AntTable loading={loading} columns={columns} rows={rows} />
       </div>
-
       <InstitutionDrawer record={record} visible={visible} onClose={onClose} />
     </AppLayout>
   )
