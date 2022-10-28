@@ -1,16 +1,12 @@
-import Head from "next/head"
-import { useSelector } from "react-redux";
-import { appStore } from "../redux/app/selector";
+import Head from "next/head";
 
 export const HeadTitle = (props) => {
-    const {title} = props;
-
-    const app = useSelector((state: any) => appStore(state));
+    const { title } = props;
 
     return <Head>
-        <title>{title} - {app.name} | Goods & Services | Eazibiz</title>
-        <meta name="description" content={`${app} goods & services management`} />
-        <meta name="keyword" content={`${app} product, goods & services management`} />
+        <title>{title} | Ecobowl</title>
+        <meta name="description" content='entrepreneurs and business managemnt' />
+        <meta name="keyword" content='entrepreneurs and business managemnt' />
         <link rel="icon" href="/favicon.ico" />
     </Head>
 }

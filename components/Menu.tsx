@@ -35,18 +35,18 @@ const Menu = ({ logo = "./app.png" }) => {
                             </li> : null
                     }
                     {
-                        checkPermissions("/events") ? <li>
-                            <NavLink to='/events'>
-                                <BsCalendar2Event className="text-lg" />
-                                <p className="whitespace-nowrap">Events</p>
-                            </NavLink>
-                        </li> : null
-                    }
-                    {
                         checkPermissions("/entrepreneurs") ? <li>
                             <NavLink to='/entrepreneurs'>
                                 <BsCashCoin className="text-lg" />
                                 <p className="whitespace-nowrap">Entrepreneurs</p>
+                            </NavLink>
+                        </li> : null
+                    }
+                    {
+                        checkPermissions("/events") ? <li>
+                            <NavLink to='/events'>
+                                <BsCalendar2Event className="text-lg" />
+                                <p className="whitespace-nowrap">Events</p>
                             </NavLink>
                         </li> : null
                     }
