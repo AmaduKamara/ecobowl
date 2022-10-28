@@ -2,24 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 :root {
-    --color-primary: #00a2ff;
-    --color-opacity: #00a2ff16;
+  --color-primary: #00a2ff;
+  --color-opacity: #00a2ff16;
 }
 
 body {
-    font-family: Inter, sans-serif, "Courier New", Courier, monospace;
-    font-weight: 400;
-    background: #f7f7f7;
-    color: #5e5f6e !important;
-    font-size: 17px;
+  font-family: Inter, sans-serif, "Courier New", Courier, monospace;
+  font-weight: 400;
+  background: #f7f7f7;
+  color: #5e5f6e !important;
+  font-size: 17px;
 }
 
 .truncate {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.event-reg-bg {
+  background-image: url("../public/ecobowl-registeration-bg.jpg");
+  width: 100%;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
 
 /* 
 .bar canvas {
@@ -27,223 +35,222 @@ body {
 } */
 
 .h-bar canvas {
-    height: 15rem !important;
+  height: 15rem !important;
 }
 
 .h-doug canvas {
-    height: 21rem !important;
+  height: 21rem !important;
 }
 
 .text-prim {
-    color: var(--color-primary);
+  color: var(--color-primary);
 }
 
 .bg-nav {
-    background-color: var(--color-opacity);
+  background-color: var(--color-opacity);
 }
 
 .bg-prim {
-    background-color: var(--color-primary);
+  background-color: var(--color-primary);
 }
 
 .z-index {
-    z-index: 1020;
+  z-index: 1020;
 }
 
 .ant-popover {
-    z-index: 50;
+  z-index: 50;
 }
 
 .bg-prim {
-    background-color: #151610;
+  background-color: #151610;
 }
 
 .button {
-    border: 1px solid #ececec !important;
+  border: 1px solid #ececec !important;
 }
 
 .loading-text {
-    letter-spacing: 2px;
+  letter-spacing: 2px;
 }
 
 .font-mingzat {
-    font-family: Mingzat, sans-serif, "Courier New", Courier, monospace;
+  font-family: Mingzat, sans-serif, "Courier New", Courier, monospace;
 }
 
 .font-poppins {
-    font-family: "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
-.ant-table-thead>tr>th {
-    background-color: white;
+.ant-table-thead > tr > th {
+  background-color: white;
 }
 
 .ant-btn-primary {
-    border-color: #1890ff !important;
-    background: #1890ff !important;
+  border-color: #1890ff !important;
+  background: #1890ff !important;
 }
 
 .ant-popover-inner-content {
-    padding: 5px !important;
+  padding: 5px !important;
 }
 
 @media (min-width: 768px) {
-    .md\:w-login {
-        width: 28rem;
-    }
-    .md\:w-105 {
-        width: 30rem;
-    }
-    .md\:h-bar canvas {
-        height: 13rem !important;
-    }
-    .md\:h-doug canvas {
-        height: 13rem !important;
-    }
+  .md\:w-login {
+    width: 28rem;
+  }
+  .md\:w-105 {
+    width: 30rem;
+  }
+  .md\:h-bar canvas {
+    height: 13rem !important;
+  }
+  .md\:h-doug canvas {
+    height: 13rem !important;
+  }
 }
 
 @media (min-width: 1024px) {
-    .lg\:h-bar canvas {
-        height: 25rem !important;
-    }
-    .lg\:h-doug canvas {
-        height: 25rem !important;
-    }
+  .lg\:h-bar canvas {
+    height: 25rem !important;
+  }
+  .lg\:h-doug canvas {
+    height: 25rem !important;
+  }
 }
 
 @media (max-width: 1397px) {
-    .pc\:h-bar canvas {
-        height: 23rem !important;
-    }
-    .pc\:h-doug canvas {
-        height: 23rem !important;
-    }
-    .pc\:p-4 {
-        padding: 1rem !important;
-    }
-    .pc\:w-52 {
-        width: 13rem !important;
-    }
+  .pc\:h-bar canvas {
+    height: 23rem !important;
+  }
+  .pc\:h-doug canvas {
+    height: 23rem !important;
+  }
+  .pc\:p-4 {
+    padding: 1rem !important;
+  }
+  .pc\:w-52 {
+    width: 13rem !important;
+  }
 }
 
 @media (max-width: 1240px) {
-    .pt\:h-bar canvas {
-        height: 19rem !important;
-    }
-    .pt\:h-doug canvas {
-        height: 35rem !important;
-    }
-    .pc\:p-4 {
-        padding: 1rem !important;
-    }
-    .pt\:hidden {
-        display: none !important;
-    }
-    .pt\:block {
-        display: block !important;
-    }
-    .pt\:p-5 {
-        padding: 1.25rem !important;
-    }
-    .pt\:w-full {
-        width: 100% !important;
-    }
-    .pt\:flex-col-reverse {
-        flex-direction: column-reverse !important;
-    }
-    .pt\:space-x-0> :not([hidden])~ :not([hidden]) {
-        --tw-space-y-reverse: 0;
-        margin-left: calc(0px * calc(1 - var(--tw-space-y-reverse))) !important;
-        margin-right: calc(0px * var(--tw-space-y-reverse)) !important;
-    }
+  .pt\:h-bar canvas {
+    height: 19rem !important;
+  }
+  .pt\:h-doug canvas {
+    height: 35rem !important;
+  }
+  .pc\:p-4 {
+    padding: 1rem !important;
+  }
+  .pt\:hidden {
+    display: none !important;
+  }
+  .pt\:block {
+    display: block !important;
+  }
+  .pt\:p-5 {
+    padding: 1.25rem !important;
+  }
+  .pt\:w-full {
+    width: 100% !important;
+  }
+  .pt\:flex-col-reverse {
+    flex-direction: column-reverse !important;
+  }
+  .pt\:space-x-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-left: calc(0px * calc(1 - var(--tw-space-y-reverse))) !important;
+    margin-right: calc(0px * var(--tw-space-y-reverse)) !important;
+  }
 }
 
 .cubeLoader {
-    width: 200px;
-    display: #ecfece;
-    transform: rotate(-45deg);
+  width: 200px;
+  display: #ecfece;
+  transform: rotate(-45deg);
 }
 
 .cubeLoader .cube {
-    width: 30px;
-    height: 30px;
-    margin: 20px;
-    background-color: #ececec;
-    float: right;
-    animation: anim 2s infinite;
+  width: 30px;
+  height: 30px;
+  margin: 20px;
+  background-color: #ececec;
+  float: right;
+  animation: anim 2s infinite;
 }
 
 .cubeLoader .cube.load {
-    background-color: #3b82f6;
+  background-color: #3b82f6;
 }
 
 .cubeLoader .cube:nth-child(1) {
-    animation-name: cubeMoveAnim1, cubeAnim;
+  animation-name: cubeMoveAnim1, cubeAnim;
 }
 
 @keyframes cubeMoveAnim1 {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(-100px, 0);
-    }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100px, 0);
+  }
 }
 
 .cubeLoader .cube:nth-child(2) {
-    animation-name: cubeMoveAnim2, cubeAnim;
+  animation-name: cubeMoveAnim2, cubeAnim;
 }
 
 @keyframes cubeMoveAnim2 {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(0, 100px);
-    }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, 100px);
+  }
 }
 
 .cubeLoader .cube:nth-child(3) {
-    animation-name: cubeMoveAnim3, cubeAnim;
+  animation-name: cubeMoveAnim3, cubeAnim;
 }
 
 @keyframes cubeMoveAnim3 {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(0, -100px);
-    }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(0, -100px);
+  }
 }
 
 .cubeLoader .cube:nth-child(4) {
-    animation-name: cubeMoveAnim4, cubeAnim;
+  animation-name: cubeMoveAnim4, cubeAnim;
 }
 
 @keyframes cubeMoveAnim4 {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(100px, 0);
-    }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(100px, 0);
+  }
 }
 
 @keyframes cubeAnim {
-    0% {
-        border-radius: 0px;
-    }
-    40% {
-        border-radius: 40px;
-    }
-    60% {
-        border-radius: 40px;
-    }
-    100% {
-        border-radius: 0px;
-    }
+  0% {
+    border-radius: 0px;
+  }
+  40% {
+    border-radius: 40px;
+  }
+  60% {
+    border-radius: 40px;
+  }
+  100% {
+    border-radius: 0px;
+  }
 }
-
 
 /* Ant ui */
 
@@ -253,17 +260,17 @@ body {
 .ant-picker,
 .ant-input-affix-wrapper,
 .ant-btn-icon-only.ant-btn-lg {
-    border-radius: 5px;
+  border-radius: 5px;
 }
 
-.ant-input-group>.ant-input:last-child,
+.ant-input-group > .ant-input:last-child,
 .ant-input-group-addon:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
-.ant-input-group>.ant-input:first-child,
+.ant-input-group > .ant-input:first-child,
 .ant-input-group-addon:first-child {
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
