@@ -11,13 +11,16 @@ import { useWindowSize } from '../../hooks/useWindowSize';
 import { SelectField } from '../ui/SelectField';
 import { DateField } from '../ui/DateField';
 import { size } from '../../common';
+import { useSelector } from 'react-redux';
+import { instituteStore } from '../../redux/institutions/selector';
 
 const { Option } = Select;
 
 export const EventDrawer = ({ visible, onClose, record }) => {
     const [isLoading, setLoading] = useState(false);
     const { width } = useWindowSize();
-    const [institutions, setInstitutions] = useState([]);
+
+    const institutions = useSelector((state: any) => instituteStore(state));
 
     const handleClose = (refresh = false) => {
         formik.resetForm();
@@ -45,7 +48,7 @@ export const EventDrawer = ({ visible, onClose, record }) => {
             name: "",
             institute: "",
             startDate: new Date().toISOString(),
-            endDate:  new Date().toISOString(),
+            endDate: new Date().toISOString(),
             description: ""
         },
         validationSchema,
@@ -53,7 +56,7 @@ export const EventDrawer = ({ visible, onClose, record }) => {
             setLoading(true);
 
             if (record) {
-                api.patch(`/event/${record.id}`, values)
+                api.patch(`/event/${record.id}`, { ...values, institutionId: values.institute })
                     .then(res => res.data)
                     .then(({ message }) => {
                         ShowMessage('success', '', message);
@@ -62,7 +65,7 @@ export const EventDrawer = ({ visible, onClose, record }) => {
                     .catch(handle401Error)
                     .finally(() => setLoading(false))
             } else {
-                api.post("/event", values)
+                api.post("/event", { ...values, institutionId: values.institute })
                     .then(res => res.data)
                     .then(({ message }) => {
                         ShowMessage('success', '', message);
@@ -76,13 +79,13 @@ export const EventDrawer = ({ visible, onClose, record }) => {
 
     useEffect(() => {
         if (record) {
-            const { id, name, contactPerson, address, description } = record;
+            const { id, name, startDate, endDate, institutionId, description } = record;
 
             formik.setFieldValue("name", name);
-            formik.setFieldValue("address", address);
+            formik.setFieldValue("institute", institutionId);
             formik.setFieldValue("description", description);
-            formik.setFieldValue("contactPerson", contactPerson.name);
-            formik.setFieldValue("contactPersonPhone", contactPerson.phone);
+            formik.setFieldValue("startDate", startDate);
+            formik.setFieldValue("endDate", endDate);
             formik.setFieldValue("id", id);
         }
     }, [record])
@@ -124,7 +127,7 @@ export const EventDrawer = ({ visible, onClose, record }) => {
                                 placeholder="Start Date"
                                 value={formik.values.startDate}
                                 onBlur={formik.handleBlur}
-                                onChange={(value) => handelChange("startDate", value)}
+                                onChanged={(value) => handelChange("startDate", value)}
                                 error={formik.touched.startDate && formik.errors.startDate ? formik.errors.startDate : ""}
                                 name='startDate' />
                         </div>
@@ -134,7 +137,7 @@ export const EventDrawer = ({ visible, onClose, record }) => {
                                 label='End Date'
                                 placeholder="End Date"
                                 value={formik.values.endDate}
-                                onChange={(value) => handelChange("endDate", value)}
+                                onChanged={(value) => handelChange("endDate", value)}
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.endDate && formik.errors.endDate ? formik.errors.endDate : ""}
                                 name='endDate' />

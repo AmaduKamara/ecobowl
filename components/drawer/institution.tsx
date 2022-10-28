@@ -83,7 +83,7 @@ export const InstitutionDrawer = ({ visible, onClose, record }) => {
             formik.setFieldValue("address", address);
             formik.setFieldValue("description", description);
             formik.setFieldValue("contactPerson", contactPerson.name);
-            formik.setFieldValue("contactPersonPhone", contactPerson.phone);
+            formik.setFieldValue("contactPersonPhone", contactPerson.phone.replace("+232", ""));
             formik.setFieldValue("id", id);
         }
     }, [record])

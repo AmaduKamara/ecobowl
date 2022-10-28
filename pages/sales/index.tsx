@@ -13,7 +13,7 @@ import { EventTeams } from '../../hooks/useEvent';
 import { AntTableExpanded } from '../../components/ui/Table';
 import { useSales } from '../../hooks/useSales';
 import { useWindowSize } from '../../hooks/useWindowSize';
-import { setSales } from '../../redux/sales/slice';
+import { setSales } from '../../redux/event/slice';
 
 const Sales = () => {
   const dispatch = useDispatch();
