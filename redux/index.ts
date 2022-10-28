@@ -6,9 +6,8 @@ import supplyReducer from './supply/slice';
 import supplyItemsReducer from './supply/supply.slice';
 import rewardReducer from './reward/slice';
 import offerReducer from './offer/slice';
-import salesReducer from './sales/slice';
+import eventReducer from './event/slice';
 import customerReducer from './customer/slice';
-import staffReducer from './staff/slice';
 import userReducer from './user/slice';
 import usersReducer from './users/slice';
 import saleReducer from './sale/slice';
@@ -22,7 +21,7 @@ const makeStore = () => configureStore({
     institute: instituteReducer,
     supply: supplyReducer,
     supply_items: supplyItemsReducer,
-    sales: salesReducer,
+    event: eventReducer,
     sale: saleReducer,
     reward: rewardReducer,
     offer: offerReducer,
