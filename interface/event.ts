@@ -1,7 +1,7 @@
 export interface Event {
     id: String;
-    invoiceNumber: String;
-    supplyInvoice: String
+    name: String;
+    description: String
     dateSupplied: String;
     totalCost: String;
     items: Array<never>
@@ -9,8 +9,8 @@ export interface Event {
 
 export const newEvent = {
     id: "",
-    invoiceNumber: "",
-    supplyInvoice: "",
+    name: "",
+    description: "",
     dateSupplied: "",
     totalCost: "",
     items: []
