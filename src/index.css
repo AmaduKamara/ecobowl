@@ -19,3 +19,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+/* Login and Signup background */
+.login-signup {
+  background-image: url("../public/images/eco-bowl-signin-signup.jpg");
+  width: 100%;
+  /* height: calc(100vh - 86px); */
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
