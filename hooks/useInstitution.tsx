@@ -2,9 +2,7 @@ import { Popconfirm } from "antd";
 import { BiTrash } from "react-icons/bi";
 import { FiEdit3 } from "react-icons/fi";
 import { useSelector } from "react-redux";
-import { ToLeones } from ".";
 import { instituteStore } from "../redux/institutions/selector";
-import { serviceStore } from "../redux/service/selector";
 
 const Action = ({ record, edit = (e?: any) => { }, remove = (e?: any) => { } }) => {
   return (

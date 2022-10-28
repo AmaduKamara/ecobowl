@@ -1,10 +1,10 @@
-import { ToLeones } from ".";
+import { DateFormater, ToLeones } from ".";
 import { useEventsTeams } from "./useSales";
 import { percentage } from "../components/ui/price-content";
 import { AntTableNested } from "../components/ui/Table";
 import Router from "next/router";
 import { FiEye } from "react-icons/fi";
-import { salesStore } from "../redux/sales/selector";
+import { eventStore } from "../redux/event/selector";
 import { useSelector } from "react-redux";
 
 export const ItemsCount = (items) => {
@@ -36,20 +36,21 @@ export const Total = (row) => {
 export const Action = ({ record, edit, remove }) => {
     return (
         <div className="flex items-center space-x-3 justify-end">
-            <button onClick={() => Router.push(`/event/${record.id}`)} type="button" className="text-xl text-green-500"><FiEye /></button>
+            <button onClick={() => Router.push(`/events/${record.id}`)} type="button" className="text-xl text-green-500"><FiEye /></button>
         </div>
     )
 }
 
 export const useEvent = ({ edit = () => { }, remove = () => { } }) => {
-    const items = useSelector((state: any) => salesStore(state));
+    const items = useSelector((state: any) => eventStore(state));
     const rows = items.map(e => ({ ...e, key: e.id }));
 
     const columns = [
         { dataIndex: 'name', title: 'Name', type: 'string' },
         { title: 'Description', dataIndex: "description", ellipsis: true },
-        { title: 'Solution', dataIndex: "description", ellipsis: true },
-        { title: 'Solution Description', dataIndex: "description", ellipsis: true },
+        { title: 'Institution', dataIndex: "institution", ellipsis: true, render: (institute) => institute.name },
+        { title: 'Start Date', dataIndex: "startDate", render: (date) => DateFormater(date) },
+        { title: 'End Date', dataIndex: "endDate", render: (date) => DateFormater(date) },
         { title: 'Action', dataIndex: '', key: 'x', align: "right", fixed: "right", render: (_, record) => Action({ record, edit, remove }), width: 100 },
     ];
 

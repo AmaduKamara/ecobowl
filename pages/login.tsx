@@ -51,7 +51,7 @@ const Login = () => {
             <Card className="w-full md:w-96 px-8 py-6">
                 <div className="mb-5">
                     <div className="flex items-center mb-7 space-x-2">
-                        <Image src={ecobowlLogo} width={190} height={50} />
+                        <Image src={ecobowlLogo} width={150} height={30} />
                     </div>
                 </div>
                 {

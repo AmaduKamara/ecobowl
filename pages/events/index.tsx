@@ -1,26 +1,27 @@
 import { AppLayout } from '../../components/AppLayout';
 import { setProducts } from '../../redux/product/slice';
 import { api, handle401Error } from "../../api"
-import { useProducts } from '../../hooks/useProcucts';
 import { AntTableExpanded } from '../../components/ui/Table';
 import { EventTeams, useEvent } from '../../hooks/useEvent';
 import { Breadcrumb } from 'antd';
 import Link from 'next/link';
-import Router from 'next/router';
 import { HeadTitle } from '../../components/head';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppButton } from '../../components/ui/Button';
 import { EventDrawer } from '../../components/drawer/events';
+import { setInstitute } from '../../redux/institutions/slice';
+import { setEvent } from '../../redux/event/slice';
 
 const Product = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  const [record, setRecord] = useState(null);
+  const [record] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch();
+    institutes();
   }, []);
 
   const fetch = () => {
@@ -28,7 +29,17 @@ const Product = () => {
     api('/event')
       .then((res) => res.data)
       .then((res) => {
-        dispatch(setProducts(res));
+        dispatch(setEvent(res));
+      })
+      .catch(handle401Error)
+      .finally(() => setLoading(false));
+  }
+
+  const institutes = () => {
+    api('/institute')
+      .then((res) => res.data)
+      .then((res) => {
+        dispatch(setInstitute(res));
       })
       .catch(handle401Error)
       .finally(() => setLoading(false));

@@ -8,7 +8,7 @@ import { Discount, Total } from "./useEvent";
 import { ItemsCount } from "./useEvent";
 import { Action } from "../components/ui/Table";
 import { useAuth } from "../contexts/auth";
-import { sales5Store, salesStore } from "../redux/sales/selector";
+import { sales5Store, salesStore } from "../redux/event/selector";
 
 export const SAction = ({ record }) => {
     const { app } = useAuth();

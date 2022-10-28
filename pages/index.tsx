@@ -1,7 +1,7 @@
 import { AppLayout, Card } from '../components/AppLayout';
 import { CountChat } from '../components/chart/count';
 import { BarChat } from '../components/chart/Bar';
-import { setSales } from '../redux/sales/slice';
+import { setSales } from '../redux/event/slice';
 import { api, handle401Error } from '../api';
 import Last4 from '../components/chart/Last4';
 import { useAuth } from '../contexts/auth';
