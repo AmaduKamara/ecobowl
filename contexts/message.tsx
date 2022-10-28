@@ -4,7 +4,7 @@ type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
 export const ShowMessage = (type: NotificationType, title, message: string) => {
   notification[type]({
-    message: "Eazibiz",
+    message: "Ecobowl",
     description: message
   });
 };

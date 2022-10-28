@@ -28,6 +28,7 @@ const Nav = ({ logo = "app.png" }) => {
     return (
         <nav className='bg-white z-50 pb-6 pt-5 border-b border-t lg:relative w-full'>
             <div className="px-5 flex items-center justify-between">
+                <p>Echobowl</p>
                 {
                     user ? <div className="flex space-x-3 items-center">
                         <button className="lg:hidden pt:block" onClick={onMenuOpen}><HiOutlineMenu className="text-2xl text-gray-400" /></button>

@@ -11,7 +11,7 @@ const Action = ({ record, edit = (e?: any) => { }, remove = (e?: any) => { } }) 
       <button onClick={() => edit(record)} type="button" className="text-xl text-yellow-500"><FiEdit3 /></button>
       <Popconfirm
         placement="topRight"
-        title="Are you sure to delete this service?"
+        title="Are you sure to delete this institutions?"
         onConfirm={() => remove(record)}
         okText="Yes"
         okType="danger"
@@ -23,15 +23,16 @@ const Action = ({ record, edit = (e?: any) => { }, remove = (e?: any) => { } }) 
   )
 }
 
-export const useService = ({ edit = (e?) => { }, remove = (e?) => { } }) => {
+export const useInstitution = ({ edit = (e?) => { }, remove = (e?) => { } }) => {
   const items = useSelector((state: any) => serviceStore(state));
   const rows = items.map(e => ({ ...e, key: e.id }));
 
   const columns = [
     { dataIndex: 'name', title: 'Name', type: 'string' },
-    { dataIndex: 'cost', title: 'Cost', render: (data) => ToLeones(data) },
-    { dataIndex: 'staffReward', title: 'Staff Reward', render: (data) => ToLeones(data) },
+    { dataIndex: 'cost', title: 'Address', render: (data) => ToLeones(data) },
     { title: 'Description', dataIndex: "description", ellipsis: true },
+    { dataIndex: 'staffReward', title: 'Contact Person', render: (data) => ToLeones(data) },
+    { dataIndex: 'staffReward', title: 'Contact Person Phone', render: (data) => ToLeones(data) },
     { title: 'Action', dataIndex: '', key: 'x', align: "right", fixed: "right", render: (_, record) => Action({ record, edit, remove }), width: 100 },
   ];
 

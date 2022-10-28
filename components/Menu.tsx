@@ -4,11 +4,11 @@ import { NavLink } from "./NavLink";
 import { useSelector } from "react-redux";
 import { menuStore } from "../redux/menu/selector";
 import { MdBatchPrediction } from "react-icons/md";
-import { FaCashRegister, FaRegIdBadge, FaUserCog, FaUserSecret } from "react-icons/fa";
+import { FaCashRegister, FaRegIdBadge, FaSchool, FaUserCog, FaUserSecret } from "react-icons/fa";
 import { FiTool } from "react-icons/fi";
 import { appStore } from "../redux/app/selector";
 import { checkPermissions } from "../contexts/permission";
-import { BsCashCoin } from "react-icons/bs";
+import { BsCalendar2Event, BsCashCoin } from "react-icons/bs";
 
 const Menu = ({ logo = "./app.png" }) => {
 
@@ -26,83 +26,40 @@ const Menu = ({ logo = "./app.png" }) => {
                         </NavLink>
                     </li>
                     {
-                        checkPermissions("/product") ?
+                        checkPermissions("/business") ?
                             <li>
-                                <NavLink to='/product'>
+                                <NavLink to='/business'>
                                     <BiCollection className="text-xl" />
-                                    <p className="whitespace-nowrap">Product</p>
+                                    <p className="whitespace-nowrap">Business</p>
                                 </NavLink>
                             </li> : null
                     }
                     {
-                        checkPermissions("/sales") ? <li>
-                            <NavLink to='/sales'>
-                                <FaCashRegister className="text-lg" />
-                                <p className="whitespace-nowrap">Sales</p>
+                        checkPermissions("/events") ? <li>
+                            <NavLink to='/events'>
+                                <BsCalendar2Event className="text-lg" />
+                                <p className="whitespace-nowrap">Events</p>
                             </NavLink>
                         </li> : null
                     }
                     {
-                        checkPermissions("/offer") ? <li>
-                            <NavLink to='/offer'>
-                                <ImBook className="text-lg" />
-                                <p className="whitespace-nowrap">Service Offer</p>
-                            </NavLink>
-                        </li> : null
-                    }
-                    {
-                        checkPermissions("/reward") ? <li>
-                            <NavLink to='/reward'>
+                        checkPermissions("/entrepreneurs") ? <li>
+                            <NavLink to='/entrepreneurs'>
                                 <BsCashCoin className="text-lg" />
-                                <p className="whitespace-nowrap">Monthly Reward</p>
+                                <p className="whitespace-nowrap">Entrepreneurs</p>
                             </NavLink>
                         </li> : null
                     }
                     {
-                        checkPermissions("/supply") ?
-                            <li>
-                                <NavLink to='/supply'>
-                                    <BiArchive className="text-xl" />
-                                    <p className="whitespace-nowrap">Supply</p>
-                                </NavLink>
-                            </li> : null
-                    }
-                    {
-                        checkPermissions("/customer") ? <li>
-                            <NavLink to='/customer'>
-                                <BiGroup className="text-xl" />
-                                <p className="whitespace-nowrap">Customer</p>
+                        checkPermissions("/institutions") ? <li>
+                            <NavLink to='/institutions'>
+                                <FaSchool className="text-xl" />
+                                <p className="whitespace-nowrap">Institutions</p>
                             </NavLink>
                         </li> : null
-                    }
-                    {
-                        checkPermissions("/staff") ?
-                            <li>
-                                <NavLink to='/staff'>
-                                    <FaRegIdBadge className="text-xl" />
-                                    <p className="whitespace-nowrap">Staff</p>
-                                </NavLink>
-                            </li> : null
-                    }
-                    {
-                        checkPermissions("/service") ?
-                            <li>
-                                <NavLink to='/service'>
-                                    <MdBatchPrediction className="text-xl" />
-                                    <p className="whitespace-nowrap">Service</p>
-                                </NavLink>
-                            </li> : null
                     }
                 </ul>
                 <ul className="border-t border-gray-100 py-5">
-                    {
-                        checkPermissions("/role") ? <li>
-                            <NavLink to='/role'>
-                                <FaUserCog className="text-xl" />
-                                <p className="whitespace-nowrap">Role</p>
-                            </NavLink>
-                        </li> : null
-                    }
                     {
                         checkPermissions("/user") ? <li>
                             <NavLink to='/user'>
@@ -110,16 +67,6 @@ const Menu = ({ logo = "./app.png" }) => {
                                 <p className="whitespace-nowrap">User</p>
                             </NavLink>
                         </li> : null
-                    }
-                    {
-                        checkPermissions("/setting") ?
-                            <li>
-                                <NavLink to='/setting'>
-                                    <FiTool className="text-xl" />
-                                    <p className="whitespace-nowrap">Settings</p>
-                                </NavLink>
-                            </li>
-                            : null
                     }
                 </ul>
             </div>
