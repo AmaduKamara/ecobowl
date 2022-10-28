@@ -11,7 +11,7 @@ import { AppButton } from '../components/ui/Button';
 import { AntTable } from '../components/ui/Table';
 import { ShowMessage } from '../contexts/message';
 import { useInstitution } from '../hooks/useInstitution';
-import { setService } from '../redux/service/slice';
+import { setInstitute } from '../redux/institutions/slice';
 
 const Institutions: NextPage = () => {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const Institutions: NextPage = () => {
     api('/institute')
       .then((res) => res.data)
       .then((res) => {
-        dispatch(setService(res));
+        dispatch(setInstitute(res));
       })
       .catch(handle401Error)
       .finally(() => setLoading(false));
@@ -68,7 +68,7 @@ const Institutions: NextPage = () => {
 
   return (
     <AppLayout>
-      <HeadTitle title="Service" />
+      <HeadTitle title="Institutions" />
       <div className='flex justify-between items-center'>
         <Breadcrumb>
           <Breadcrumb.Item><Link href='/'><a>Dashboard</a></Link></Breadcrumb.Item>

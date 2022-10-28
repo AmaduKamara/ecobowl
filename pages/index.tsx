@@ -18,10 +18,10 @@ const Home = () => {
 
   const { user } = useAuth();
 
-  useEffect(() => {
-    fetch();
-    sales();
-  }, []);
+  // useEffect(() => {
+  //   fetch();
+  //   sales();
+  // }, []);
 
   const fetch = () => {
     setLoading(true);

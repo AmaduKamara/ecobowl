@@ -30,7 +30,7 @@ const Nav = ({ logo = "app.png" }) => {
             <div className="px-5 flex items-center justify-between">
                 <p>Echobowl</p>
                 {
-                    user ? <div className="flex space-x-3 items-center">
+                    app ? <div className="flex space-x-3 items-center">
                         <button className="lg:hidden pt:block" onClick={onMenuOpen}><HiOutlineMenu className="text-2xl text-gray-400" /></button>
                         <div className="bg-white flex space-x-2 items-center">
                             <img src={logo} className="w-5 h-6" alt="app" />

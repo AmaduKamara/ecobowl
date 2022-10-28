@@ -1,7 +1,7 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 import { createWrapper } from 'next-redux-wrapper';
 import menuReducer from './menu/slice';
-import productReducer from './product/slice';
+import instituteReducer from './institutions/slice';
 import supplyReducer from './supply/slice';
 import supplyItemsReducer from './supply/supply.slice';
 import rewardReducer from './reward/slice';
@@ -19,8 +19,7 @@ import appReducer from './app/slice';
 const makeStore = () => configureStore({
   reducer: {
     menu: menuReducer,
-    product: productReducer,
-    staff: staffReducer,
+    institute: instituteReducer,
     supply: supplyReducer,
     supply_items: supplyItemsReducer,
     sales: salesReducer,

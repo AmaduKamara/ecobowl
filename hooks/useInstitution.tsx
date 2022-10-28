@@ -3,6 +3,7 @@ import { BiTrash } from "react-icons/bi";
 import { FiEdit3 } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import { ToLeones } from ".";
+import { instituteStore } from "../redux/institutions/selector";
 import { serviceStore } from "../redux/service/selector";
 
 const Action = ({ record, edit = (e?: any) => { }, remove = (e?: any) => { } }) => {
@@ -24,15 +25,15 @@ const Action = ({ record, edit = (e?: any) => { }, remove = (e?: any) => { } }) 
 }
 
 export const useInstitution = ({ edit = (e?) => { }, remove = (e?) => { } }) => {
-  const items = useSelector((state: any) => serviceStore(state));
+  const items = useSelector((state: any) => instituteStore(state));
   const rows = items.map(e => ({ ...e, key: e.id }));
 
   const columns = [
     { dataIndex: 'name', title: 'Name', type: 'string' },
-    { dataIndex: 'cost', title: 'Address', render: (data) => ToLeones(data) },
+    { dataIndex: 'address', title: 'Address', ellipsis: true },
     { title: 'Description', dataIndex: "description", ellipsis: true },
-    { dataIndex: 'staffReward', title: 'Contact Person', render: (data) => ToLeones(data) },
-    { dataIndex: 'staffReward', title: 'Contact Person Phone', render: (data) => ToLeones(data) },
+    { dataIndex: 'contactPerson', title: 'Contact Person', render: (person) => (person.name) },
+    { dataIndex: 'contactPerson', title: 'Contact Person Phone', render: (person) => (person.phone) },
     { title: 'Action', dataIndex: '', key: 'x', align: "right", fixed: "right", render: (_, record) => Action({ record, edit, remove }), width: 100 },
   ];
 

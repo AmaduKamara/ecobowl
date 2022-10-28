@@ -13,7 +13,7 @@ import { Card } from "../components/AppLayout";
 const Login = () => {
 
     const [isLoading, setLoading] = useState(false);
-    const { login, app } = useAuth();
+    const { login } = useAuth();
     const [error, setError] = useState([]);
 
 
@@ -34,7 +34,7 @@ const Login = () => {
             setError([]);
             setLoading(true);
 
-            login(`+232${values.phone}`, values.password, app.id)
+            login(`+232${values.phone}`, values.password)
                 .catch(({ errors }) => {
                     setError(errors);
                     setLoading(false)
@@ -46,13 +46,10 @@ const Login = () => {
         <HeadTitle title="Login" />
         <div className="flex h-screen items-center justify-center px-4">
             <Card className="w-full md:w-96 px-8 py-6">
-                <div className="mb-8">
+                <div className="mb-5">
                     <div className="flex items-center mb-7 space-x-2">
-                        <img className="w-5 h-6" src="./app.png" alt="logo" />
-                        <p className="text-base font-bold">eazibiz</p>
+                        <p className="text-xl font-bold">ecobowl</p>
                     </div>
-                    <p className="text-xl font-extrabold mb-1">{app.name}</p>
-                    <p className="text-sm">{app.caption}</p>
                 </div>
                 {
                     error.length > 0 ? <ul className='mb-5'>

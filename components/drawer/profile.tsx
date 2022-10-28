@@ -30,7 +30,7 @@ const Profile = ({ drawer, onClose }: Props) => {
                 </div>
                 <div className="flex justify-between text-sm mb-5">
                     <p className="text-gray-400">Role:</p>
-                    <p className="">{record.role.name}</p>
+                    <p className="">{record.role}</p>
                 </div>
                 <div className="flex justify-between text-sm mb-5">
                     <p className="text-gray-400">Phone:</p>
