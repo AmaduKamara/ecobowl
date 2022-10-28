@@ -1,4 +1,5 @@
 import Router, { useRouter } from "next/router";
+
 import { useAuth } from "./auth";
 
 export const checkPermissions = (route: string) => {
@@ -13,20 +14,13 @@ export const checkPermissions = (route: string) => {
     if (path === "role/[id]") path = "role";
     if (path === "user") path = "users";
 
-    if (route !== "/change-password" && route !== "/create-password" && route !== "/login" && route !== "/network" && route !== "/" && user && user.role.name !== "Owner") {
-
-        const permission = user.role.permissions.find(e => e.name.toLowerCase() === path || e.name.toLowerCase().startsWith(path));
-
-        return permission ? permission.show : false;
-    }
-
     return true;
 }
 
 export const Permission = ({ children }) => {
     let access = true;
 
-    const { user, app, isAuthenticated } = useAuth();
+    const { user, isAuthenticated } = useAuth();
     const { pathname } = useRouter();
 
     if ((pathname === "/login" || pathname === "/change-password" || pathname === "/network") && isAuthenticated && user && user.status != "Password Pending") {
@@ -34,12 +28,12 @@ export const Permission = ({ children }) => {
         window.location.pathname = "/";
     }
 
-    if (pathname === "/network" && isAuthenticated && app.id && !user) {
+    if (pathname === "/network" && isAuthenticated && !user) {
         access = false;
         window.location.pathname = "/login";
     }
 
-    if (pathname !== "/network" && pathname !== "/login" && !isAuthenticated && app.id) {
+    if (pathname !== "/network" && pathname !== "/login" && !isAuthenticated) {
         access = false;
         window.location.pathname = "/login";
     }

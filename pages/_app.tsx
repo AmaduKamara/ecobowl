@@ -27,17 +27,17 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router]);
 
   return <>
-      {/* <AuthProvider>
-        <ProtectRoute>
-          <Permission> */}
+    <AuthProvider>
+      <ProtectRoute>
+        <Permission>
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </Head>
           <RouteLoader loading={loading} />
           <Component {...pageProps} />
-          {/* </Permission>
-        </ProtectRoute>
-      </AuthProvider> */}
+        </Permission>
+      </ProtectRoute>
+    </AuthProvider>
   </>
 }
 

@@ -4,8 +4,6 @@ import { api, handleError, trimErrors } from '../api';
 import { GlobalLoad } from '../components/ui/Loading';
 import { useDispatch } from 'react-redux';
 import { activeUser } from '../redux/user/slice';
-import { setApp } from '../redux/app/slice';
-import { UnAuthRoutes } from './privent';
 
 const AuthContext = createContext({});
 
@@ -14,7 +12,6 @@ export const AuthProvider = ({ children }) => {
     const dispatch = useDispatch();
 
     const [user, setUser] = useState(null);
-    const [eazibiz, setEazibiz] = useState({ id: "" });
     const [loading, setLoading] = useState(true);
     const path = router.pathname;
 
@@ -22,49 +19,34 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
 
         async function loadUserFromCookies() {
-            app()
-                .then(async ({ data }) => {
-
-                    setEazibiz(data);
-                    dispatch(setApp(data));
-
-                    const unAuthRoutes = UnAuthRoutes(path);
-
-                    await api.get('/user/me')
-                        .then(res => res.data)
-                        .then(({ record }) => {
-                            setUser(record)
-                            dispatch(activeUser(record))
-                            if (unAuthRoutes) Router.push('/');
-                        })
-                        .catch(handleError)
-                        .catch((err) => {
-                            if (unAuthRoutes) return;
-                            throw err;
-                        })
+            return api.get('/user/me')
+                .then(res => res.data)
+                .then(({ data }) => {
+                    setUser(data)
+                    dispatch(activeUser(data))
                 })
+                .catch(handleError)
                 .catch(err => {
                     if (err.status === 307 && router.pathname !== "/network") {
                         Router.push('/network');
                         throw err;
                     }
 
-                    if (err.status === 404 && router.pathname !== "/not-found") {
-                        Router.push('/not-found');
+                    if (err.status === 404 && router.pathname !== "/login") {
+                        Router.push('/login');
                         throw err;
                     }
 
                     throw err;
                 })
                 .finally(() => setLoading(false));
-
         }
         loadUserFromCookies();
     }, []);
 
 
-    const login = async (phone, password, appId) => {
-        return api.post("/auth/login", { phone, password, appId })
+    const login = async (phone, password) => {
+        return api.post("/auth/login", { phone, password })
             .then(res => res.data)
             .then(({ user }) => {
                 if (user.status === "Password Pending") window.location.pathname = '/change-password';
@@ -92,7 +74,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated: !!user, app: eazibiz, isLoading: loading, user, login, logout }}>
+        <AuthContext.Provider value={{ isAuthenticated: !!user, isLoading: loading, user, login, logout }}>
             {children}
         </AuthContext.Provider>
     )
