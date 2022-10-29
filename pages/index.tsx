@@ -60,9 +60,6 @@ const Home = () => {
               </div>
             </div>
             <div className='flex md:space-x-5 space-y-3 md:space-y-0 flex-col md:flex-row'>
-              <div className='lg:w-3/4 pt:w-full w-full'>
-                <Last4 />
-              </div>
               <div className='lg:w-1/4 lg:block pt:hidden md:hidden w-full'>
                 {
                   user ? <Card className='bg-white pt-5 px-5 rounded-lg'>

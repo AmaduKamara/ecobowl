@@ -3,7 +3,7 @@ import { api, handle401Error } from '../../api';
 import { Breadcrumb, Tabs } from 'antd';
 import Link from 'next/link';
 import { SMTab } from '../../components/ui/Tab';
-import { Purchases } from '../../components/tabs/customer';
+import { Purchases } from '../../components/tabs/event';
 import { HeadTitle } from '../../components/head';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';

@@ -29,13 +29,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return <>
     <AuthProvider>
       <ProtectRoute>
-        <Permission>
           <Head>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
           </Head>
           <RouteLoader loading={loading} />
           <Component {...pageProps} />
-        </Permission>
       </ProtectRoute>
     </AuthProvider>
   </>

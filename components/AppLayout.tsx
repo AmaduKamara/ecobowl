@@ -8,7 +8,7 @@ export const AppLayout = ({ children, logo = "app.png" }) => {
                 <Nav logo={logo} />
             </div>
             <div className='flex-1 flex h-full'>
-                <div className='hidden pt:hidden lg:block pc:w-48 w-56 h-full'>
+                <div className='hidden pt:hidden lg:block pc:w-48 w-64 h-full'>
                     <Menu logo={logo} />
                 </div>
                 <div className='lg:p-12 pt:p-5 h-full flex-1 overflow-y-auto'>

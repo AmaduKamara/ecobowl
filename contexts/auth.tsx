@@ -27,16 +27,6 @@ export const AuthProvider = ({ children }) => {
                 })
                 .catch(handleError)
                 .catch(err => {
-                    if (err.status === 307 && router.pathname !== "/network") {
-                        Router.push('/network');
-                        throw err;
-                    }
-
-                    if (err.status === 404 && router.pathname !== "/login") {
-                        Router.push('/login');
-                        throw err;
-                    }
-
                     throw err;
                 })
                 .finally(() => setLoading(false));

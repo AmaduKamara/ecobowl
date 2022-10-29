@@ -1,14 +1,11 @@
-import { BiArchive, BiCollection, BiGridAlt, BiGroup } from "react-icons/bi";
+import { BiGridAlt } from "react-icons/bi";
 import { ImBook } from "react-icons/im";
 import { NavLink } from "./NavLink";
 import { useSelector } from "react-redux";
 import { menuStore } from "../redux/menu/selector";
-import { MdBatchPrediction } from "react-icons/md";
-import { FaCashRegister, FaRegIdBadge, FaSchool, FaUserCog, FaUserSecret } from "react-icons/fa";
-import { FiTool } from "react-icons/fi";
+import { FaSchool, FaUserSecret } from "react-icons/fa";
 import { appStore } from "../redux/app/selector";
 import { checkPermissions } from "../contexts/permission";
-import { BsCalendar2Event, BsCashCoin } from "react-icons/bs";
 
 // New icons
 import { FcBusiness } from "react-icons/fc";

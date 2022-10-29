@@ -1,17 +1,35 @@
+import { Institution, newInstitution } from "./institution";
+
+export interface Reward {
+    id: String;
+    name: String;
+    description: String;
+    eventId: String;
+}
+
+export const newReward: Reward = {
+    id: "",
+    name: "",
+    description: "",
+    eventId: ""
+}
+
 export interface Event {
     id: String;
     name: String;
     description: String
-    dateSupplied: String;
-    totalCost: String;
-    items: Array<never>
+    startDate: String;
+    endDate: String;
+    institution: Institution;
+    rewards: Array<Reward>;
 }
 
-export const newEvent = {
+export const newEvent: Event = {
     id: "",
     name: "",
     description: "",
-    dateSupplied: "",
-    totalCost: "",
-    items: []
+    startDate: "",
+    endDate: "",
+    institution: newInstitution,
+    rewards: []
 }

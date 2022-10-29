@@ -135,6 +135,8 @@ export const ApiServer = {
 
         if (response.status === 401) return UnAuthorize;
 
+        if (response.status === 404) return NotFound;
+
         return {
             props: {
                 record: response.data
