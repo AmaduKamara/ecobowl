@@ -1,6 +1,4 @@
 import { NextPage } from "next";
-import { ApiServer } from "../api";
-import { wrapper } from "../redux";
 
 const NotFound: NextPage = () => {
 

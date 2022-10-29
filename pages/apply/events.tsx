@@ -12,16 +12,20 @@ import { TextAreaField } from "../../components/ui/TextAreaField";
 import { wrapper } from "../../redux";
 import { DateFormater } from "../../hooks";
 import Router from "next/router";
+import { phoneRegExp } from "../../common";
+import Card from "antd/lib/card/Card";
 
 const Event = ({ record }) => {
   const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState("");
+  const [state, setState] = useState(1);
 
   const handleClose = () => {
-    Router.push("/")
+    Router.push("/");
   }
 
   const handleChange = (name, value) => {
-    formik.setFieldValue(name, value)
+    formik.setFieldValue(name, value);
   }
 
   const validationSchema = Yup.object({
@@ -35,6 +39,7 @@ const Event = ({ record }) => {
       .email()
       .required(),
     phone: Yup.string()
+      .matches(phoneRegExp, 'Phone number is not valid eg: 71000000')
       .required(),
     qualification: Yup.string()
       .required(),
@@ -56,10 +61,12 @@ const Event = ({ record }) => {
     onSubmit: values => {
       setLoading(true);
 
-      api.post(`/auth/${record.id}/trainee`, {...values, phone: `+232${values.phone}`})
+      api.post(`/auth/${record.id}/trainee`, { ...values, phone: `+232${values.phone}` })
         .then(res => res.data)
         .then(({ message }) => {
-          ShowMessage('success', '', message);
+          setResponse(message);
+          setState(2);
+          formik.resetForm();
         })
         .catch(handle401Error)
         .finally(() => setLoading(false))
@@ -71,10 +78,10 @@ const Event = ({ record }) => {
       <div className="flex container mx-auto">
         <div className="w-3/5"></div>
         <div className="w-2/5">
-          <h1 className="text-xl font-semibold">
+          <h1 className="text-2xl font-semibold">
             Event Trainee
           </h1>
-          <p className="text-sm">
+          <p>
             Register to be part of this event
           </p>
           <div className="mt-8">
@@ -98,94 +105,105 @@ const Event = ({ record }) => {
               </div>
             </div>
           </div>
-          <form onSubmit={formik.handleSubmit}>
-            <p className="pb-2 border-b mt-5 text-sm font-bold text-gray-500">Personal Details</p>
-            <div className="flex -mx-1 pt-2 flex-wrap">
-              <div className="w-1/2 p-3">
-                <InputField
-                  required
-                  label='Forename'
-                  placeholder="Forename"
-                  value={formik.values.forename}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.forename && formik.errors.forename ? formik.errors.forename : ""}
-                  name='forename' />
-              </div>
-              <div className="w-1/2 p-3">
-                <InputField
-                  required
-                  label='Surname'
-                  placeholder="Surname"
-                  value={formik.values.surname}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.surname && formik.errors.surname ? formik.errors.surname : ""}
-                  name='surname' />
-              </div>
-              <div className="w-1/2 p-3">
-                <DateField
-                  required
-                  label='Date Of Birth'
-                  placeholder="Date Of Birth"
-                  value={formik.values.birthDate}
-                  onChanged={(value) => handleChange('birthDate', value)}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.birthDate && formik.errors.birthDate ? formik.errors.birthDate : ""} />
-              </div>
-              <div className="w-1/2 p-3">
-                <RadioField
-                  required
-                  label='Gender'
-                  value={formik.values.gender}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.gender && formik.errors.gender ? formik.errors.gender : ""}
-                  name='gender'>
-                  <Radio value='Male'>Male</Radio>
-                  <Radio value='Female'>Female</Radio>
-                </RadioField>
-              </div>
-              <div className="w-1/2 p-3">
-                <InputField
-                  required
-                  label='Phone'
-                  placeholder="Phone"
-                  addonBefore="+232"
-                  value={formik.values.phone}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.phone && formik.errors.phone ? formik.errors.phone : ""}
-                  name='phone' />
-              </div>
-              <div className="w-1/2 p-3">
-                <InputField
-                  required
-                  label='Email'
-                  placeholder="Email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.email && formik.errors.email ? formik.errors.email : ""}
-                  name='email' />
-              </div>
-              <div className="w-full p-3">
-                <TextAreaField
-                  required
-                  label='Qualification'
-                  placeholder="Qualification"
-                  value={formik.values.qualification}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.qualification && formik.errors.qualification ? formik.errors.qualification : ""}
-                  name='qualification' />
-              </div>
-            </div>
-            <div className="flex tems-center mt-4 space-x-5 border-t pt-5 px-2">
-              <AppButton onClick={handleClose} outline>Cancel</AppButton>
-              <AppButton type="submit" loading={loading}>Register</AppButton>
-            </div>
-          </form>
+          {
+            state == 1 ?
+              <Card>
+                <form onSubmit={formik.handleSubmit}>
+                  <p className="pb-2 border-b mt-5 text-sm font-bold text-gray-500">Personal Details</p>
+                  <div className="flex -mx-1 pt-2 flex-wrap">
+                    <div className="w-1/2 p-3">
+                      <InputField
+                        required
+                        label='Forename'
+                        placeholder="Forename"
+                        value={formik.values.forename}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.forename && formik.errors.forename ? formik.errors.forename : ""}
+                        name='forename' />
+                    </div>
+                    <div className="w-1/2 p-3">
+                      <InputField
+                        required
+                        label='Surname'
+                        placeholder="Surname"
+                        value={formik.values.surname}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.surname && formik.errors.surname ? formik.errors.surname : ""}
+                        name='surname' />
+                    </div>
+                    <div className="w-1/2 p-3">
+                      <DateField
+                        required
+                        label='Date Of Birth'
+                        placeholder="Date Of Birth"
+                        value={formik.values.birthDate}
+                        onChanged={(value) => handleChange('birthDate', value)}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.birthDate && formik.errors.birthDate ? formik.errors.birthDate : ""} />
+                    </div>
+                    <div className="w-1/2 p-3">
+                      <RadioField
+                        required
+                        label='Gender'
+                        value={formik.values.gender}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.gender && formik.errors.gender ? formik.errors.gender : ""}
+                        name='gender'>
+                        <Radio value='Male'>Male</Radio>
+                        <Radio value='Female'>Female</Radio>
+                      </RadioField>
+                    </div>
+                    <div className="w-1/2 p-3">
+                      <InputField
+                        required
+                        label='Phone'
+                        placeholder="Phone"
+                        addonBefore="+232"
+                        value={formik.values.phone}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.phone && formik.errors.phone ? formik.errors.phone : ""}
+                        name='phone' />
+                    </div>
+                    <div className="w-1/2 p-3">
+                      <InputField
+                        required
+                        label='Email'
+                        placeholder="Email"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.email && formik.errors.email ? formik.errors.email : ""}
+                        name='email' />
+                    </div>
+                    <div className="w-full p-3">
+                      <TextAreaField
+                        required
+                        label='Qualification'
+                        placeholder="Qualification"
+                        value={formik.values.qualification}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.qualification && formik.errors.qualification ? formik.errors.qualification : ""}
+                        name='qualification' />
+                    </div>
+                  </div>
+                  <div className="flex tems-center mt-4 space-x-5 border-t pt-5 px-2">
+                    <AppButton onClick={handleClose} outline>Cancel</AppButton>
+                    <AppButton type="submit" loading={loading}>Register</AppButton>
+                  </div>
+                </form>
+              </Card> :
+              state === 2 ?
+                <Card className="p-2">
+                  <p className="mb-5 font-bold text-base text-green-500">{response}</p>
+                  <AppButton onClick={() => setState(1)} loading={loading}>New Registration</AppButton>
+                </Card> : null
+          }
+
         </div>
       </div>
     </section>
@@ -200,7 +218,7 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async (ctx: a
 
   const id = query.eid;
 
-  const response: any = await ApiServer.getOneWithAuth(`/event/${id}`, req);
+  const response: any = await ApiServer.getOneWithAuth(`/auth/${id}/get-event`, req);
 
   return response;
 })

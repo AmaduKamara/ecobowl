@@ -7,8 +7,7 @@ import { wrapper } from "../redux";
 import { AuthProvider, ProtectRoute } from '../contexts/auth';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { RouteLoader } from '../components/ui/Loading';
-import { Permission } from '../contexts/permission';
+import { RouteLoader } from '../components/ui/Loading'; 
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();

@@ -25,10 +25,6 @@ const Profile = ({ drawer, onClose }: Props) => {
                     <p className="">{record.lastName}</p>
                 </div>
                 <div className="flex justify-between text-sm mb-5">
-                    <p className="text-gray-400">Email:</p>
-                    <p className="">{record.email}</p>
-                </div>
-                <div className="flex justify-between text-sm mb-5">
                     <p className="text-gray-400">Role:</p>
                     <p className="">{record.role}</p>
                 </div>

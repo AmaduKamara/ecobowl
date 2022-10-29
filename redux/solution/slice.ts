@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   data: [],
@@ -7,15 +7,15 @@ const initialState = {
 }
 
 export const slice = createSlice({
-  name: 'customer',
+  name: 'solution',
   initialState,
   reducers: {
-    setCustomer: (_, action) => {
+    setSolution: (_, action) => {
       return action.payload;
     },
-  }
+  },
 })
 
-export const { setCustomer } = slice.actions;
+export const { setSolution } = slice.actions;
 
 export default slice.reducer;

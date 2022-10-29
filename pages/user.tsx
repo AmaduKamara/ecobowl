@@ -1,28 +1,22 @@
-import { Breadcrumb, Button } from 'antd';
+import { Breadcrumb } from 'antd';
 import type { NextPage } from 'next'
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { api, handle401Error } from '../api';
-import { PC } from '../common';
+import Router from 'next/router';
+import { useState } from 'react';
+import { api, ApiServer, handle401Error } from '../api';
 import { AppLayout } from '../components/AppLayout';
 import { UserDrawer } from '../components/drawer/user';
 import ViewUser from '../components/drawer/view-user';
-import { PhoneUser } from '../components/table/user';
 import { AppButton } from '../components/ui/Button';
 import { AntTable } from '../components/ui/Table';
 import { ShowMessage } from '../contexts/message';
 import { useUser } from '../hooks/useUsers';
-import { useWindowSize } from '../hooks/useWindowSize';
 import { newUser } from '../interface/user';
-import { setRoles } from '../redux/roles/slice';
+import { wrapper } from '../redux';
 import { setUsers } from '../redux/users/slice';
 
 const Users: NextPage = () => {
-  const dispatch = useDispatch();
-  const { width } = useWindowSize();
-  const [loading, setLoading] = useState(true);
-  const [rows, setRows] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [record, setRecord] = useState(newUser);
   const [visible, setVisible] = useState(false);
   const [viewState, setViewState] = useState(false);
@@ -44,7 +38,7 @@ const Users: NextPage = () => {
       .then(res => res.data)
       .then(({ message }) => {
         ShowMessage('success', '', message);
-        fetch();
+        Router.reload();
       })
       .catch(handle401Error)
       .catch(({ data }) => {
@@ -53,34 +47,7 @@ const Users: NextPage = () => {
       .finally(() => setLoading(false));
   }
 
-  const { columns } = useUser({ edit, view, remove });
-
-  useEffect(() => {
-    fetch();
-    roles();
-  }, []);
-
-  const roles = () => {
-    api('/role')
-      .then((res) => res.data)
-      .then((res) => {
-        dispatch(setRoles(res));
-      })
-      .catch(handle401Error)
-  }
-
-  const fetch = () => {
-    setLoading(true);
-    api('/user')
-      .then((res) => res.data)
-      .then((res) => {
-        const rows = res.data.map(e => ({ ...e, key: e.id }))
-        setRows(rows);
-        dispatch(setUsers(res));
-      })
-      .catch(handle401Error)
-      .finally(() => setLoading(false));
-  }
+  const { columns, rows } = useUser({ edit, view, remove });
 
   const addUser = () => {
     setVisible(true);
@@ -89,7 +56,7 @@ const Users: NextPage = () => {
   const onClose = (refresh = false) => {
     setVisible(false);
     setRecord(newUser);
-    if (refresh) fetch();
+    if (refresh) Router.reload();
   }
 
   const closeView = () => {
@@ -108,10 +75,7 @@ const Users: NextPage = () => {
       </div>
 
       <div className='mt-5'>
-        {
-          width > PC ? <AntTable loading={loading} columns={columns} rows={rows} /> :
-            <PhoneUser rows={rows} loading={loading} view={view} edit={edit} remove={remove} />
-        }
+         <AntTable loading={loading} columns={columns} rows={rows} />
       </div>
       <UserDrawer record={record} visible={visible} onClose={onClose} />
       <ViewUser record={record} visible={viewState} onClose={closeView} />
@@ -120,3 +84,12 @@ const Users: NextPage = () => {
 }
 
 export default Users;
+
+export const getServerSideProps = wrapper.getServerSideProps(store => async (ctx: any) => {
+
+  const { req } = ctx;
+
+  const response: any = await ApiServer.getWithAuth("/user", req, store, setUsers);
+
+  return response;
+})

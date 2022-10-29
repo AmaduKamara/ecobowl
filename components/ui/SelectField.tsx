@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 
 export const SelectField = (props) => {
 
-    const { label = "", required = false, value = "", id = "", error = "", name = "", placeholder = "", disabled = false, onChange = (e?: any, name?: any) => { }, onBlur = (e?: any) => { }, onSearch = (e?: any) => { }, children } = props
+    const { label = "", mode = "", required = false, value = "", id = "", error = "", name = "", placeholder = "", disabled = false, onChange = (e?: any, name?: any) => { }, onBlur = (e?: any) => { }, onSearch = (e?: any) => { }, children } = props
     
     const [val, setVal] = useState()
 
@@ -19,6 +19,7 @@ export const SelectField = (props) => {
             <Select
                 placeholder={placeholder}
                 showSearch
+                mode={mode}
                 disabled={disabled}
                 id={id}
                 onChange={(e) => onChange(e, name)}

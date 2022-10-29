@@ -21,7 +21,7 @@ const ChangePassword = () => {
         onSubmit: values => {
             setLoading(true);
 
-            api.patch("/user/password", values)
+            api.patch("/user/change/password", values)
                 .then(() => window.location.pathname = "/")
                 .catch(handle401Error)
                 .finally(() => setLoading(false))
@@ -33,7 +33,7 @@ const ChangePassword = () => {
             <Card className="p-10 md:w-105 w-full">
                 <h1 className="font-extrabold text-2xl text-gray-500">Change Password</h1>
                 <form onSubmit={formik.handleSubmit}>
-                    <p className="mb-5 mt-3 text-base text-gray-500">Please enter your password below, so you can start enjoying eazibiz</p>
+                    <p className="mb-5 mt-3 text-base text-gray-500">Please enter your password below, so you can start using ecobowl</p>
                     <div className="mb-5">
                         <PasswordField
                             id="password"

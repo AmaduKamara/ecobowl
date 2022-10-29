@@ -4,6 +4,7 @@ export interface Reward {
     id: String;
     name: String;
     description: String;
+    position: string;
     eventId: String;
 }
 
@@ -11,6 +12,7 @@ export const newReward: Reward = {
     id: "",
     name: "",
     description: "",
+    position: "",
     eventId: ""
 }
 

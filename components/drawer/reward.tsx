@@ -10,6 +10,7 @@ import { AppButton } from '../ui/Button';
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { size } from '../../common';
 import { newReward } from '../../interface/event';
+import { NumberField } from '../ui/NumberField';
 
 export const RewardDrawer = ({ visible, onClose, record = newReward }) => {
     const [isLoading, setLoading] = useState(false);
@@ -24,13 +25,16 @@ export const RewardDrawer = ({ visible, onClose, record = newReward }) => {
         name: Yup.string()
             .required(),
         description: Yup.string()
+            .required(),
+        position: Yup.number()
             .required()
     });
 
     const formik = useFormik({
         initialValues: {
             name: "",
-            description: ""
+            description: "",
+            position: "",
         },
         validationSchema,
         onSubmit: values => {
@@ -58,12 +62,17 @@ export const RewardDrawer = ({ visible, onClose, record = newReward }) => {
         },
     });
 
+    const handleChange = (name, value) => {
+        formik.setFieldValue(name, value);
+    }
+
     useEffect(() => {
         if (record) {
-            const { id, name, eventId, description } = record;
+            const { id, name, eventId, description, position } = record;
 
             formik.setFieldValue("name", name);
             formik.setFieldValue("description", description);
+            formik.setFieldValue("position", position);
             formik.setFieldValue("eventId", eventId);
             formik.setFieldValue("id", id);
         }
@@ -84,6 +93,18 @@ export const RewardDrawer = ({ visible, onClose, record = newReward }) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.name && formik.errors.name ? formik.errors.name : ""}
                                 name='name' />
+                        </div>
+                        <div className='mb-5'>
+                            <NumberField
+                                required
+                                label='Position'
+                                min="1"
+                                placeholder="Position"
+                                value={formik.values.position}
+                                onChange={(value) => handleChange("position", value)}
+                                onBlur={formik.handleBlur}
+                                error={formik.touched.position && formik.errors.position ? formik.errors.position : ""}
+                                name='position' />
                         </div>
                         <div className='mb-3'>
                             <TextAreaField

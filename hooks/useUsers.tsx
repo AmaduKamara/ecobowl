@@ -2,7 +2,9 @@ import { Popconfirm } from "antd";
 import { ColumnsType } from "antd/lib/table";
 import { BiTrash } from "react-icons/bi";
 import { FiEdit3, FiEye } from "react-icons/fi";
-import { Name, Role, Status } from "../components/ui/UsersContent";
+import { useSelector } from "react-redux";
+import { Name, Status } from "../components/ui/UsersContent";
+import { usersStore } from "../redux/users/selector";
 
 const Action = ({ record, edit = (e?: any) => { }, view = (e?: any) => { }, remove = (e?: any) => { } }) => {
   return (
@@ -24,16 +26,19 @@ const Action = ({ record, edit = (e?: any) => { }, view = (e?: any) => { }, remo
 }
 
 export const useUser = ({ edit = (e?: any) => { }, view = (e?: any) => { }, remove = (e?: any) => { } }) => {
+  const items = useSelector((state: any) => usersStore(state));
+  const rows = items.map(e => ({ ...e, key: e.id }));
+
   const columns: ColumnsType<any> = [
     { key: 'name', title: 'Name', fixed: 'left', ellipsis: true, render: Name },
-    { dataIndex: 'email', key: 'email', title: 'Email' },
     { dataIndex: 'phone', key: 'phone', title: 'Phone' },
-    { dataIndex: 'role', key: 'role', title: 'Role', render: Role },
+    { dataIndex: 'role', key: 'role', title: 'Role' },
     { dataIndex: 'status', key: 'status', title: 'Status', render: Status },
     { title: 'Action', dataIndex: '', key: 'x', align: "right", fixed: 'right', render: (_, record) => Action({ record, edit, remove, view }), width: 100 },
   ];
 
   return {
-    columns
+    columns,
+    rows
   }
 }

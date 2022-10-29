@@ -1,5 +1,4 @@
 import { AppLayout } from '../../components/AppLayout';
-import { setProducts } from '../../redux/product/slice';
 import { api, handle401Error } from "../../api"
 import { AntTableExpanded } from '../../components/ui/Table';
 import { EventTeams, useEvent } from '../../hooks/useEvent';

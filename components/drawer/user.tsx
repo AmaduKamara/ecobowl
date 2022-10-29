@@ -5,8 +5,6 @@ import { api, handleError, trimErrors } from '../../api';
 import { useEffect, useState } from 'react';
 import { Drawer, Select } from 'antd';
 import { SelectField } from '../ui/SelectField';
-import { useSelector } from 'react-redux';
-import { roleStore } from '../../redux/roles/selector';
 import { phoneRegExp, PC, size } from '../../common';
 import { ShowMessage } from '../../contexts/message';
 import { AppButton } from '../ui/Button';
@@ -16,7 +14,7 @@ const { Option } = Select;
 
 export const UserDrawer = ({ visible, record, onClose }) => {
     const [loading, setLoading] = useState(false);
-    const roles = useSelector((state: any) => roleStore(state));
+    const roles = ["Admin"];
     const { width } = useWindowSize();
 
     const handleClose = (refresh = false) => {
@@ -30,12 +28,12 @@ export const UserDrawer = ({ visible, record, onClose }) => {
             formik.setFieldValue('lastName', record.lastName);
             formik.setFieldValue('email', record.email);
             formik.setFieldValue('phone', record.phone.replace("+232", ""));
-            formik.setFieldValue('roleId', record.role.id);
+            formik.setFieldValue('role', record.role.id);
         }
     }, [record]);
 
     const roleClick = (e) => {
-        formik.setFieldValue("roleId", e)
+        formik.setFieldValue("role", e)
     }
 
     const validationSchema = Yup.object({
@@ -43,13 +41,11 @@ export const UserDrawer = ({ visible, record, onClose }) => {
             .required(),
         lastName: Yup.string()
             .required(),
-        email: Yup.string()
-            .email().required(),
         phone: Yup
             .string()
             .matches(phoneRegExp, 'Phone number is not valid eg: 76000000')
             .required(),
-        roleId: Yup.string()
+        role: Yup.string()
             .required()
     });
 
@@ -57,9 +53,8 @@ export const UserDrawer = ({ visible, record, onClose }) => {
         initialValues: {
             firstName: "",
             lastName: "",
-            roleId: "",
-            phone: "",
-            email: ""
+            role: "",
+            phone: ""
         },
         validationSchema,
         onSubmit: values => {
@@ -123,11 +118,11 @@ export const UserDrawer = ({ visible, record, onClose }) => {
                                 disabled={record && record.role.name === "Owner" ? true : false}
                                 label='Role'
                                 placeholder="Role"
-                                value={formik.values.roleId}
+                                value={formik.values.role}
                                 onChange={roleClick}
-                                error={formik.touched.roleId && formik.errors.roleId ? formik.errors.roleId : ""}>
+                                error={formik.touched.role && formik.errors.role ? formik.errors.role : ""}>
                                 {
-                                    roles.map(role => <Option value={role.id}>{role.name}</Option>)
+                                    roles.map(role => <Option value={role}>{role}</Option>)
                                 }
                             </SelectField>
                         </div>
@@ -143,16 +138,6 @@ export const UserDrawer = ({ visible, record, onClose }) => {
                                 onBlur={formik.handleBlur}
                                 error={formik.touched.phone && formik.errors.phone ? formik.errors.phone : ""}
                                 name='phone' />
-                        </div>
-                        <div className='mb-5'>
-                            <InputField
-                                label='Email'
-                                placeholder='Email'
-                                value={formik.values.email}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                error={formik.touched.email && formik.errors.email ? formik.errors.email : ""}
-                                name='email' />
                         </div>
                         <div className='border-t mt-10 pt-3 flex space-x-3'>
                             <AppButton

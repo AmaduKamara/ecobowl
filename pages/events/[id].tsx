@@ -1,6 +1,6 @@
 import { AppLayout, ViewLayout } from '../../components/AppLayout';
-import { ApiServer } from '../../api';
-import { useState } from 'react';
+import { api, ApiServer, handle401Error } from '../../api';
+import { useEffect, useState } from 'react';
 import Router from 'next/router';
 import { Breadcrumb, Tabs } from 'antd';
 import Link from 'next/link';
@@ -10,23 +10,80 @@ import { DateFormater } from '../../hooks';
 import { SMTab } from '../../components/ui/Tab';
 import { newReward } from '../../interface/event';
 import { RewardDrawer } from '../../components/drawer/reward';
-import { Reward, Trainees } from '../../components/tabs/event';
+import { Reward, Solutions, Teams, Trainees } from '../../components/tabs/event';
 import { wrapper } from '../../redux';
 
 const { TabPane } = Tabs;
 
 const ViewEvent = ({ record }) => {
     const [reward, setReward] = useState(newReward);
+    const [rewards, setRewards] = useState([]);
+    const [trainees, setTrainees] = useState([]);
+    const [teams, setTeams] = useState([]);
+    const [solutions, setSolutions] = useState([]);
     const [visible, setVisible] = useState(false);
+    const [RLoading, setRLoading] = useState(true);
+    const [SLoading, setSLoading] = useState(true);
+    const [TMLoading, setTMLoading] = useState(true);
+    const [TLoading, setTLoading] = useState(true);
 
-    console.log(record);
+    useEffect(() => {
+        rewardsFN();
+        teamsFN();
+        solutionsFN();
+        traineesFN();
+    }, [])
 
+    const rewardsFN = () => {
+        setRLoading(true);
+
+        api(`/reward/event/${record.id}`)
+            .then((res) => res.data)
+            .then(({ data }) => {
+                setRewards(data);
+            })
+            .catch(handle401Error)
+            .finally(() => setRLoading(false));
+    }
+
+    const teamsFN = () => {
+        setTMLoading(true);
+
+        api(`/team/event/${record.id}`)
+            .then((res) => res.data)
+            .then(({ data }) => {
+                setTeams(data);
+            })
+            .catch(handle401Error)
+            .finally(() => setTMLoading(false));
+    }
+
+    const solutionsFN = () => {
+        api(`/solution/event/${record.id}`)
+            .then((res) => res.data)
+            .then(({ data }) => {
+                setSolutions(data);
+            })
+            .catch(handle401Error)
+            .finally(() => setSLoading(false));
+    }
+
+    const traineesFN = () => {
+        api(`/trainee/event/${record.id}`)
+            .then((res) => res.data)
+            .then(({ data }) => {
+                setTrainees(data);
+            })
+            .catch(handle401Error)
+            .finally(() => setTLoading(false));
+    }
 
     const addReward = () => {
         setReward({
             description: "",
             id: "",
             eventId: record.id,
+            position: "",
             name: ""
         })
         setVisible(true);
@@ -34,7 +91,7 @@ const ViewEvent = ({ record }) => {
 
     const onClose = (refresh) => {
         setVisible(false);
-        if (refresh) Router.reload();
+        if (refresh) rewardsFN();
     }
 
     return (
@@ -70,20 +127,16 @@ const ViewEvent = ({ record }) => {
                     {
                         record.id ? <SMTab>
                             <TabPane tab='Reward' key='1'>
-                                <Reward records={record.rewards} />
+                                <Reward records={rewards} loading={RLoading} />
                             </TabPane>
                             <TabPane tab='Trainees' key='2'>
-                                <Trainees records={record.trainees} />
+                                <Trainees records={trainees} loading={TLoading} />
                             </TabPane>
                             <TabPane tab='Teams' key='3'>
-                                {/* <AntTable
-                                columns={columns}
-                                rows={rows} /> */}
+                                <Teams records={teams} loading={TMLoading} />
                             </TabPane>
                             <TabPane tab='Solutions' key='4'>
-                                {/* <AntTable
-                                columns={columns}
-                                rows={rows} /> */}
+                                <Solutions records={solutions} loading={SLoading} />
                             </TabPane>
                         </SMTab> : null
                     }
