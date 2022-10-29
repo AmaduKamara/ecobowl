@@ -1,8 +1,8 @@
-const CreateTeam = () => {
+const CreateSolution = () => {
   return (
     <section className="flex justify-center items-center h-screen bg-[#F7F7F7]">
       <div className="w-2/5 shadow-md p-5 bg-white rounded-md border">
-        <h1 className="text-2xl font-semibold">Create Team</h1>
+        <h1 className="text-2xl font-semibold">Create Solution</h1>
 
         <form className="mt-10">
             <div className="flex items-center">
@@ -13,7 +13,7 @@ const CreateTeam = () => {
               </div>
               <div className="w-1/2">
                 <label htmlFor="members" className="block">
-                  Members
+                  Solution Title
                 </label>
               </div>
             </div>
@@ -37,4 +37,4 @@ const CreateTeam = () => {
   )
 }
 
-export default CreateTeam
+export default CreateSolution
